@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block nav %}<a class="btn btn-secondary" href="#"><i class="bi bi-filetype-py"></i></a>{% endblock %}
+{% block label %}MESSAGE{% endblock %}
+{% block icon %}<a class="btn btn-secondary" href="{% url 'add_room' %}"><i class="bi bi-pencil"></i></a>{% endblock %}
+{% block content %}
+    <div>
+        {% for room in rooms %}
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="{{ room.room_image.url }}" class="card-img">
+                    </div>
+                    <div class="col-9">
+                        {% if request.user == room.first_user or request.user == room.second_user %}
+                            {% if request.user == room.first_user %}
+                                <a class="card-title" href="{% url 'room' room.id %}"><h3>{{ room.second_user }}</h3>
+                            {% else %}
+                                <a class="card-title" href="{% url 'room' room.id %}"><h3>{{ room.first_user }}</h3>
+                            {% endif %}   
+                                    <span class="badge bg-primary rounded-pill">{{ message.date }}</span>
+                                </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

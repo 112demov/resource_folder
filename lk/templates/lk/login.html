@@ -1,0 +1,38 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block bootstrap5_content %}
+<title>login</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<div class="card" style="margin: auto; text-align: center; width: 25rem; border: 0px;">
+	<div class="card-body">
+		{% autoescape on %}{% bootstrap_messages %}{% endautoescape %}
+		<img src="{% static 'lk/python.png' %}" style="border-radius: 50%; width: 50%;">  
+		<h3 class="mb-5">Sign in</h3>
+		{% if form.errors %}
+		<div class="alert alert-danger">
+			login or password is incorrect
+		</div>
+		{% endif %}
+		<form method="post" action="{% url 'login' %}">
+			{% csrf_token %}
+			{% for field in form %}
+				{% bootstrap_field field %}
+			{% endfor %}
+            <button class="btn btn-secondary btn-lg btn-block" type="submit">Login</button><br>
+			<a href="#">Forgot password?</a> | 
+			<a href="{% url 'register' %}">Registration</a>
+		</form>
+		<script type="text/javascript">
+		$(document).ready(function () {
+		window.setTimeout(function() {
+			$(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+				$(this).remove(); 
+			});
+		}, 5000);
+		});
+		</script>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col" style="background-color:aliceblue;">
+        <div class="message-area" style="height: 800px; overflow: auto;">
+            <div class="card" style="margin: auto; text-align: center; width: 25rem; border: 0px;">
+                <div class="card-body">
+                    <h3 class="mb-5">New Chat</h3>
+                    {% if messages %}
+                    {{ message }}
+                    {% endif %}
+                    <form method="post" action="{% url 'add_room' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <select name="second_user" id="id_second_user" class="form-select mb-2">
+                            <option value selected>--------------------------------------</option>
+                            {% for i in users %}
+                            <option value="{{ i.id }}">{{ i.username }}</option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-secondary btn-lg btn-block" type="submit">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

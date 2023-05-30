@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}foto{{ picture.title }}{% endblock %}
+{% block nav %}<a class="btn btn-secondary" href="{% url 'pic' %}"><i class="bi bi-arrow-90deg-left"></i></a>{% endblock %}
+{% block label %}PIC{% endblock %}
+{% block icon %}
+<a class="btn btn-secondary" href="{% url 'pic-delete' picture.pk %}"><i class="bi bi-trash3"></i></a>
+{% endblock %}
+{% block content %}
+<div class="card" style="text-align: center; border: 0px;">
+	<img src="{{ picture.img.url }}" class="card-img-top" alt="{{ picture.alt }}"/>
+	<div class="card-body">
+		<h5 class="card-title">{{ picture.title }}</h5>
+		<p class="card-text">{{ picture.date }}</p>
+	</div>
+</div>
+{% endblock %}

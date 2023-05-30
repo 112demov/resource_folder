@@ -1,0 +1,47 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}picture{% endblock %}
+{% block nav %}<a class="btn btn-secondary" href="/"><i class="bi bi-filetype-py"></i></a>{% endblock %}
+{% block label %}PIC{% endblock %}
+{% block icon %}<a class="btn btn-secondary" href="{% url 'add-foto' %}"><i class="bi bi-pencil"></i></a>{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="card">
+	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-inner">
+			{% for i in object_list %}
+			<div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}" data-bs-interval="100000000000">
+				<a href="{{ i.get_absolute_url }}"><img src="{{ i.img.url }}" class="d-block w-100" alt="{{ i.alt.url }}"></a>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>{{ i.title }}</h5>
+					<p>{{ i.date }}</p>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Предыдущий</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Следующий</span>
+		</button>
+	</div>
+</div>
+<div class="row g-1" style="margin: auto">
+	{% for i in object_list %}
+    <div class="col-3">
+      <a href="{{ i.get_absolute_url }}"><img src="{{ i.img.url }}" class="card-img-top" style="height: 100%;"></a>
+    </div>
+	{% endfor %}
+	<div class="col-3">
+		<a href="{% url 'add-foto' %}"><img src="{% static 'img/plus_range.jpg' %}" class="card-img-top"/></a>
+	</div>
+</div>
+{% else %}
+<p>Вы не можете просматривать содержимое страницы</p>
+<a href="{% url 'login' %}">Войти</a>
+{% endif %}
+{% endblock %}

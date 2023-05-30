@@ -1,0 +1,23 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block nav %}<a class="btn btn-secondary" href="#"><i class="bi bi-filetype-py"></i></a>{% endblock %}
+{% block label %}PEOPLE{% endblock %}
+{% block icon %}<a class="btn btn-secondary" href="#"><i class="bi bi-pencil"></i></a>{% endblock %}
+
+{% block content %}
+{% for i in object_list %}
+<div class="card mb-2" style="max-width: 100%;">
+	<div class="row">
+		<div class="col-4">
+			<img src="{{ i.image.url }}" class="img-fluid rounded-start">
+		</div>
+		<div class="col-8">
+			<div class="card-body">
+				<h4 class="card-title">{{ i.user }}</h4>
+				<a href="{{ i.get_absolute_url }}" class="card-text">Read more</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endfor %}
+{% endblock %}

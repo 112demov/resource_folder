@@ -1,0 +1,48 @@
+{% load django_bootstrap5 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+{% if comments %}
+	<div style="text-align: right">
+		{{ comments.count|pluralize }}
+		{{ comments.count }} commentaries
+	</div>
+{% for comment in Post.comment.all %}
+	<div class="row g-1">
+		<div class="col-2">
+			<img src="{{ comment.author.profile.image.url }}" class="card-img">
+			<h5 style="text-align: center;">{{ comment.author }}</h5>
+		</div>
+		<div class="col-10">
+			<p class="card-text" style="margin: 10px;">{{ comment.body }}</p>
+		</div>
+		<div>
+		{% if request.user == comment.author.profile.user %}
+			<a class="btn btn-secondary" href="#">Delete</a>
+		{% endif %}
+			<p class="text-right text-muted" style="text-align: right;">{{ comment.date }}</p>
+		</div>
+	</div>
+	<hr>
+{% endfor %}
+{% endif %}
+	<div class="card" style="margin: 10px; border: 0px;">
+	<h3>Leave a comment</h3>
+	<div class="row g-3">
+		<div class="col-2">
+			<img src="{{ user.profile.image.url }}" class="card-img">
+		</div>
+		<div class="col-10">
+			<form method='POST'>
+				{% csrf_token %}
+				{% for field in form %}
+					{% bootstrap_field field %}
+				{% endfor %}
+				<button class="btn btn-secondary" type="submit">Send</button>
+			</form>
+		</div>
+	</div>
+	</div>
+{% endblock %}

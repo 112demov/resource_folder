@@ -1,0 +1,12 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<title>logout</title>
+<div class="card" style="margin: auto; text-align: center; width: 25rem; border: 0px;">
+	<div class="card-body">
+		<img src="{% static 'lk/python.png' %}" style="border-radius: 50%; width: 50%;">
+		<h1>You are logout</h1>
+		<a class="btn btn-secondary btn-lg btn-block" href="{% url 'login' %}">Sign in?</a>
+	</div>
+</div>

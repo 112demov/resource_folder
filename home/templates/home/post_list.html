@@ -1,0 +1,22 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block nav %}<a class="btn btn-secondary" href="/"><i class="bi bi-filetype-py"></i></a>{% endblock %}
+{% block label %}NEWS{% endblock %}
+{% block icon %}<a class="btn btn-secondary" href="{% url 'post_new' %}"><i class="bi bi-pencil"></i></a>{% endblock %}
+{% block content %}	
+{% for post in object_list %}
+		<div class="card mb-5" style="height: 40rem; border: 0px;">
+		{% if post.image %}
+			<img src="{{ post.image.url }}" class="card-img-top">
+		{% endif %}
+			<div class="card-body overflow-hidden" style="-webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 95%);">
+				<h4 class="card-title">{{ post.title }}</h4>
+				<p>{{ post.body }}</p>
+			</div>
+			<div class="card-footer bg-transparent" style="border: none;">	
+				<a href="{{ post.get_absolute_url }}" class="card-link">Read more</a>
+				<p style="text-align: right; font-size: 12px;">{{ post.date }}</p>
+			</div>
+		</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'home/base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="col-8" style="margin:auto; text-align: center;">
+		<h2>Profile</h2>
+		{% bootstrap_form u_form %}
+		{% bootstrap_form p_form %}
+		<div class="d-grid gap-2" style="margin-bottom: 25px;">
+			<button class="btn btn-secondary" type="submit">Save</button>
+		</div>
+	</div>
+</form>
+{% endblock %}

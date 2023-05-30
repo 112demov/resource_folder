@@ -1,0 +1,71 @@
+{% extends 'home/base.html' %}
+{% block nav %}<a class="btn btn-secondary" href="{% url 'home' %}"><i class="bi bi-arrow-90deg-left"></i></a>{% endblock %}
+{% block label %}NEWS{% endblock %}
+{% block icon %}
+{% if request.user == post.author.profile.user %}
+<div class="dropdown">
+	<a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		<i class="bi bi-pencil"></i>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a class="dropdown-item" href="{% url 'post_edit' post.pk %}">Edit</a></li>
+		<li><a class="dropdown-item" href="{% url 'post_delete' post.pk %}">Delete</a></li>
+	</ul>
+</div>
+{% else %}
+<div class="dropdown">
+	<a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		<i class="bi bi-pencil"></i>
+	</a>
+</div>
+{% endif %}
+{% endblock %}
+{% block content %}
+<div class="card mb-5" style="border: 0px;">
+	{% if post.image %}
+	<img src="{{ post.image.url }}" class="card-img-top">
+	{% endif %}
+	<div class="card-body">
+		<img src="{{ post.author.profile.image.url }}" style="width: 40px;"><p>{{ post.author }}</p>
+		<h5 class="card-title">{{ post.title }}</h5>
+		<p class="card-text">{{ post.body }}</p>
+	</div>
+	<p>{{ post.date }}</p>
+	<div style="text-align: right">
+		<hr>
+		{% if comments %}
+		<h5>{{ comments.count }} commentaries</h5>
+	</div>
+{% for comment in comments %}
+	<div class="row g-1">
+		<div class="col-2">
+			<img src="{{ comment.author.profile.image.url }}" class="card-img">
+			<h5 style="text-align: center;">{{ comment.author }}</h5>
+		</div>
+		<div class="col-10">
+			<p class="card-text" style="margin: 10px;">{{ comment.body }}</p>
+		</div>
+		<div>
+			<p class="text-right text-muted" style="text-align: right;">{{ comment.date }}</p>
+		</div>
+	</div>
+	<hr>
+{% endfor %}
+{% endif %}
+	<div class="card mb-2" style="margin: 10px; border: 0px;">
+		<h3>Leave a comment</h3>
+		<div class="row g-3">
+			<div class="col-2">
+				<img src="{{ user.profile.image.url }}" class="card-img">
+			</div>
+			<div class="col-10">
+				<form method='POST'>
+					{% csrf_token %}
+					<textarea class="form-control mb-2" cols="50" rows="3" name="body" plaseholder="Comment here!" id="id_body"></textarea>
+					<button class="btn btn-secondary" style="width: 100%;"type="submit">Send</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

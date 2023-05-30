@@ -1,0 +1,11 @@
+{% extends 'home/base.html' %}
+{% block nav %}<a class="btn btn-secondary" href="{% url 'post_detail' post.pk %}"><i class="bi bi-arrow-90deg-left"></i></a>{% endblock %}
+{% block label %}NEWS{% endblock %}
+{% block icon %}<a class="btn btn-secondary" href="#"><i class="bi bi-filetype-py"></i></a>{% endblock %}
+{% block content %}
+    <h1>Delete post</h1>
+    <form action="" method="post">{% csrf_token %}
+          <p>Are you sure you want to delete?</p>
+          <input type="submit" value="Confirm" />
+    </form>
+{% endblock content %}

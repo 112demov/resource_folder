@@ -1,0 +1,30 @@
+{% extends 'home/base.html' %}
+{% block nav %}<a class="btn btn-secondary" href="/"><i class="bi bi-arrow-90deg-left"></i></a>{% endblock %}
+{% block label %}NEWS{% endblock %}
+{% block icon %}<a class="btn btn-secondary" href="#"><i class="bi bi-filetype-py"></i></a>{% endblock %}
+{% block content %}
+<title>New post</title>
+<div class="card" style="margin: auto; text-align: center; border: 0px;">
+	<div class="card-body">
+		<h3 class="mb-5">New Post</h3>
+		<form method="post" enctype="multipart/form-data">
+			<div class="form-group">
+			{% csrf_token %}
+			<input type="text" name="title" maxlength="30" class="form-control mb-2" placeholder="Title" required id="id_title">
+			<input type="file" name="image" accept="image/*" class="form-control mb-2" id="id_image">
+			<img class="card-img mb-2" id="img_prewiew">
+			<textarea name="body" cols="40" rows="4" class="form-control mb-2" placeholder="Input your text" required id="id_body"></textarea>
+			<button class="btn btn-secondary btn-lg btn-block" type="submit">Publish</button>
+			</div>
+		</form>
+		<script>
+			id_image.onchange = evt => {
+				const [file] = id_image.files
+				if (file) {
+				  img_prewiew.src = URL.createObjectURL(file)
+				}
+			  }
+		</script>
+	</div>
+</div>
+{% endblock content %}

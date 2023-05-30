@@ -1,0 +1,19 @@
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block content %}
+<title>Sign up</title>
+<div class="card" style="margin: auto; text-align: center; width: 25rem; border: 0px;">
+	<div class="card-body">
+		<img src="{% static 'lk/python.png' %}" style="border-radius: 50%; width: 50%;">
+		<h3 class="mb-5">Sign up</h3>
+		<form method="post">
+			{% csrf_token %}
+			{% bootstrap_form form %}
+			<button class="btn btn-secondary btn-lg btn-block" type="submit">Sign up</button><br>
+		</form>
+		<a href="{% url 'login' %}">Have account?</a>
+	</div>
+</div>
+{% endblock %}

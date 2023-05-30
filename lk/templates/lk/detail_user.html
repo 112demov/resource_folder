@@ -1,0 +1,22 @@
+{% extends 'home/base.html' %}
+{% block nav %}<a class="btn btn-secondary" href="{% url 'profile_list' %}"><i class="bi bi-arrow-90deg-left"></i></a>{% endblock %}
+{% block label %}PEOPLE{% endblock %}
+{% block icon %}<a class="btn btn-secondary" href="/"><i class="bi bi-filetype-py"></i></a>{% endblock %}
+{% block content %}
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-4">
+      <img src="{{ profile.image.url }}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ profile.user }}</h5>
+        <p class="card-text">{{ profile.gender }}</p>
+		    <p class="card-text">{{ profile.city }}</p>
+        <p class="card-text"><small class="text-muted">{{ profile.age }}</small></p>
+		    <p class="card-text"><small class="text-muted">{{ profile.bio }}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

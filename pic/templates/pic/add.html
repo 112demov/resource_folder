@@ -1,0 +1,26 @@
+{% extends 'home/base.html' %}
+
+{% block title %}add_foto{% endblock %}
+
+{% block content %}
+<div class="card" style="border: 0px; text-align: center;">
+	<h3 class="card-title mb-5">Choose image</h3>
+	<form enctype="multipart/form-data" form action="" method="post">
+		{% csrf_token %}
+		<input type="file" name="img" accept="image/*" class="form-control mb-2" required id="id_img">
+		<img class="card-img mb-2" id="img_prev">
+		<input type="text" name="title" maxlength="120" class="form-control mb-2" placeholder="Title" required id="id_title">
+		<input type="text" name="alt" cols="30" rows="10" class="form-control mb-2" placeholder="description" required id="id_alt">
+		<button class="btn btn-primary" type="submit">Add</button>
+	</form>
+	<script>
+		id_img.onchange = evt => {
+			const [file] = id_img.files
+			if (file) {
+			  img_prev.src = URL.createObjectURL(file)
+			}
+		  }
+	</script>
+	</div>
+</div>
+{% endblock %}
